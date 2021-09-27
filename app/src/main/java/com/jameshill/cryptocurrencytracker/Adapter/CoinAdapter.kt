@@ -7,7 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.jameshill.cryptocurrencytracker.Common.Common
 import com.jameshill.cryptocurrencytracker.Interface.ILoadMore
 import com.jameshill.cryptocurrencytracker.Model.CoinModel
 import com.jameshill.cryptocurrencytracker.R
@@ -72,19 +71,18 @@ class CoinAdapter(
         item.coinName.text = coinModel.name
         item.coinSymbol.text = coinModel.symbol
         item.coinPrice.text = coinModel.current_price
-        item.oneHourChange.text = coinModel.price_change_percentage_1h_in_currency + "%"
-        item.twentyFourChange.text = coinModel.price_change_percentage_24h_in_currency + "%"
-        item.sevenDayChange.text = coinModel.price_change_percentage_7d_in_currency + "%"
+        item.oneHourChange.text = coinModel.price_change_percentage_1h_in_currency
+        item.twentyFourChange.text = coinModel.price_change_percentage_24h_in_currency
+        item.sevenDayChange.text = coinModel.price_change_percentage_7d_in_currency
 
         Picasso.get()
             .load(
-                StringBuilder(Common.image)
+                StringBuilder(coinModel.image)
                     .append(coinModel.symbol!!.toLowerCase())
 
                     .append(".png")
-                    .toString()
-            )
-            .into(item.coinIcon)
+                    .toString())
+                    .into(item.coinIcon)
 
         //set Color
         item.oneHourChange.setTextColor(

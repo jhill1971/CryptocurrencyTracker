@@ -2,7 +2,6 @@ package com.jameshill.cryptocurrencytracker
 //Data collected from coingecko API
 
 import android.os.Bundle
-import android.telecom.Call
 import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -30,26 +29,25 @@ class MainActivity : AppCompatActivity(), ILoadMore {
         client = OkHttpClient()
         request = Request.Builder()
             .url(
-                String.format(
-                    "https://api.coingecko.com/api/v3/coins/markets?vs_currency=USD&order=market_cap_desc&per_page=100&page=1&sparkline=false&price_change_percentage=1h%2C24h%2C7d"))
+                    "https://api.coingecko.com/api/v3/coins/markets?vs_currency=USD&order=market_cap_desc&per_page=100&page=1&sparkline=false&price_change_percentage=1h%2C24h%2C7d")
             .build()
         swipe_to_refresh.isRefreshing = true // show refresh
         client.newCall(request)
             .enqueue( object : Callback
             {
-                override fun onFailure(call: Call, e: IOException) {
-                    Log.e("ERROR", e.toString())
+
+                override fun onFailure(call: okhttp3.Call, e: IOException) {
+                    Log.d("ERROR", e.toString())
                 }
 
-                override fun onResponse(call: Call, response: Response) {
+                override fun onResponse(call: okhttp3.Call, response: Response) {
                     val body = response.body!!.string()
                     val gson = Gson()
                     items = gson.fromJson(body,object: TypeToken<List<CoinModel>>() {}.type)
                     runOnUiThread {
                         adapter.updateData(items)
 
-                    }
-                }
+                    }                }
             })
     }
 
@@ -70,18 +68,19 @@ class MainActivity : AppCompatActivity(), ILoadMore {
         request = Request.Builder()
             .url(
                 String.format(
-                    "https://api.coingecko.com/api/v3/coins/markets?vs_currency=USD&order=market_cap_desc&per_page=100&page=1&sparkline=false&price_change_percentage=1h%2C24h%2C7d")
+                    "https://api.coingecko.com/api/v3/coins/markets?vs_currency=USD&order=market_cap_desc&per_page=100&page=1&sparkline=false&price_change_percentage=1h%2C24h%2C7d",index)
             )
             .build()
         swipe_to_refresh.isRefreshing = true // show refresh
         client.newCall(request)
-            .enqueue(object : Callback {
+            .enqueue(object : Callback
+            {
 
-                override fun onFailure(call: Call, e: IOException) {
-                    Log.e("ERROR", e.toString())
+                override fun onFailure(call: okhttp3.Call, e: IOException) {
+                    Log.d("ERROR", e.toString())
                 }
 
-                override fun onResponse(call: Call, response: Response) {
+                override fun onResponse(call: okhttp3.Call, response: Response) {
                     val body = response.body!!.string()
                     val gson = Gson()
                     val newItems = gson.fromJson<List<CoinModel>>(body,object: TypeToken<List<CoinModel>>() {}.type)
