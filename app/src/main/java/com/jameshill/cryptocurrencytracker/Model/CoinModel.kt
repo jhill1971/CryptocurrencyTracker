@@ -1,13 +1,13 @@
 package com.jameshill.cryptocurrencytracker.Model
 
 class CoinModel {
-    var id:String? = null
-    var name:String? = null
-    var symbol:String? = null
-    var current_price:String? = null
-    var price_change_percentage_1h_in_currency:String? = null
-    var price_change_percentage_24h_in_currency:String? = null
-    var price_change_percentage_7d_in_currency:String? = null
+    var id: String? = null
+    var name: String? = null
+    var symbol: String? = null
+    var current_price: String? = null
+    var price_change_percentage_1h_in_currency: String? = null
+    var price_change_percentage_24h_in_currency: String? = null
+    var price_change_percentage_7d_in_currency: String? = null
 
     constructor()
     constructor(

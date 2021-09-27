@@ -12,6 +12,8 @@ import com.jameshill.cryptocurrencytracker.Interface.ILoadMore
 import com.jameshill.cryptocurrencytracker.Model.CoinModel
 import com.jameshill.cryptocurrencytracker.R
 import com.squareup.picasso.Picasso
+import kotlinx.android.synthetic.main.coin_layout.view.*
+
 
 class CoinViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     var coinIcon = itemView.coinIcon
@@ -67,12 +69,12 @@ class CoinAdapter(
         val coinModel = items.get(position)
         val item = holder as CoinViewHolder
 
-        item.coinName = coinModel.name
-        item.coinSymbol = coinModel.symbol
-        item.coinPrice = coinModel.current_price
-        item.oneHourChange = coinModel.price_change_percentage_1h_in_currency + "%"
-        item.twentyFourChange = coinModel.price_change_percentage_24h_in_currency + "%"
-        item.sevenDayChange = coinModel.price_change_percentage_7d_in_currency + "%"
+        item.coinName.text = coinModel.name
+        item.coinSymbol.text = coinModel.symbol
+        item.coinPrice.text = coinModel.current_price
+        item.oneHourChange.text = coinModel.price_change_percentage_1h_in_currency + "%"
+        item.twentyFourChange.text = coinModel.price_change_percentage_24h_in_currency + "%"
+        item.sevenDayChange.text = coinModel.price_change_percentage_7d_in_currency + "%"
 
         Picasso.get()
             .load(
@@ -80,30 +82,31 @@ class CoinAdapter(
                     .append(coinModel.symbol!!.toLowerCase())
 
                     .append(".png")
-                    .toString()  )
-            .into (item.coinIcon)
+                    .toString()
+            )
+            .into(item.coinIcon)
 
         //set Color
-        item.oneHourChange.setTextColor
-        (if (coinModel.price_change_percentage_1h_in_currency!!.contains("-"))
-            Color.parseColor("#FF0000")
-        else
-            Color.parseColor("#32CD32")
-                )
+        item.oneHourChange.setTextColor(
+            if (coinModel.price_change_percentage_1h_in_currency!!.contains("-"))
+                Color.parseColor("red")
+            else
+                Color.parseColor("green")
+        )
 
-        item.twentyFourChange.setTextColor
-        (if (coinModel.price_change_percentage_24h_in_currency!!.contains("-"))
-            Color.parseColor("#FF0000")
-        else
-            Color.parseColor("#32CD32")
-                )
+        item.twentyFourChange.setTextColor(
+            if (coinModel.price_change_percentage_24h_in_currency!!.contains("-"))
+                Color.parseColor("red")
+            else
+                Color.parseColor("green")
+        )
 
-        item.sevenDayChange.setTextColor
-        (if (coinModel.price_change_percentage_7d_in_currency!!.contains("-"))
-            Color.parseColor("#FF0000")
-        else
-            Color.parseColor("#32CD32")
-                )
+        item.sevenDayChange.setTextColor(
+            if (coinModel.price_change_percentage_7d_in_currency!!.contains("-"))
+                Color.parseColor("red")
+            else
+                Color.parseColor("green")
+        )
 
     }
 
